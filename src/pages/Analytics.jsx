@@ -18,7 +18,7 @@ const Analytics = () => {
         'vacation': { backgroundColor: 'rgb(37 99 235)' },
         'Transport': { backgroundColor: ' rgb(234 179 8)'},
         'Hobbies': { backgroundColor: 'green' },
-        'other': { backgroundColor: 'purple' },
+        'other': { backgroundColor: 'purple' }
     }
 
 
