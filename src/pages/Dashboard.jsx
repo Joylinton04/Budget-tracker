@@ -4,36 +4,41 @@ import { useContext, useEffect, useState } from "react";
 import { DataContext } from "../context/DataContext";
 
 const Dashboard = () => {
-  const { budget } = useContext(DataContext)
+  const { budget, expenses } = useContext(DataContext)
   const [recent, setRecent] = useState([])
 
   useEffect(() => {
-    if(budget.length>0) {
+    if(budget) {
       setRecent(budget.slice(-10).reverse())
     }
   },[budget])
 
   return (
-   <div>
+   <div className="h-full">
       <BudgetReference/>
-      <div className="border-2 rounded-2xl bg-white mt-8">
+      <div className="border-2 rounded-2xl bg-white mt-8 pb-16">
           <div className="rounded-2xl p-6 flex justify-between">
-            <h1 className="capitalize">budget records</h1>
-            <span><Link to="/">view all</Link></span>
+            <h1 className="capitalize font-semibold text-2xl">Recent records</h1>
+            <span className="text-blue-600 text-lg hover:underline"><Link to="/analytics">view all</Link></span>
           </div>
           <div className="px-6 pb-6">
             <table className="w-full">
               <tbody>
-                {recent 
-                ?  recent.map((recent => (
-                  <tr className="border-b-2 relative" key={recent.id}>
-                    <td className="font-bold capitalize text-left">{recent.category}</td>
+                {recent.length 
+                ?  recent.map((recent => {
+                  const Allexpense = expenses.filter(expense => expense.id == recent.id)
+                  const totalExpense = Allexpense.reduce((total, currentExpense)=> total + parseFloat(currentExpense.amount), 0)
+                  const total = eval(recent.amount - totalExpense)
+                  return(
+                  <tr className="border-b-2 relative hover:bg-slate-100 cursor-pointer" key={recent.id}>
+                    <td className="font-bold capitalize text-left text-lg">{recent.category}</td>
                     <td className="text-left">{recent.date}</td>
                     <td className="text-left">{recent.account}</td>
-                    <td className="font-bold text-red-600 text-left absolute right-0">{recent.amount}</td>
+                    <td className="font-bold text-left absolute right-0" style={total <= 0 ? {color: 'red'} : {color:'green'}}>{total}$</td>
                   </tr>
-                )))
-                : <p>No transaction</p>
+                  )
+                }))
+                : <tr className="text-3xl text-black text-center p-4"><td>No Recent Budget</td></tr>
               }
             </tbody>
             </table>

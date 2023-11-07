@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <div className=" w-full border-2 h-[12vh] bg-txt rounded-b-[2.5rem] flex justify-between items-center px-10">
+    <div className="sticky top-0 z-20 w-full border-2 h-[12vh] bg-txt rounded-b-[2.5rem] flex justify-between items-center px-10">
         <div>
-          <button className="rounded-full bg-addb-bg py-2 px-4 text-lg">
-              <Link to="/add">
+          <button className="rounded-full bg-lime-500 text-white py-2 px-4 text-lg">
+              <Link to="/add" className='flex items-center'>
                 <span className="pr-4 text-3xl">+</span> 
-                Add a Budget
+                <span>Add a Budget</span>
               </Link>
           </button>
         </div>

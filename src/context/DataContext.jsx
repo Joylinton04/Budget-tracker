@@ -8,23 +8,37 @@ export const DataProvider = ({children}) => {
         {
           id: 1,
           category:'vacation',
-          amount: '-1000.00',
+          amount: '5000.00',
           account: 'credit',
-          date: '20 December',
+          date: '4/11/2023',
         },
         {
           id: 2,
-          category:'vacation',
+          category:'Hobbies',
           amount: '3000.00',
           account: 'credit',
-          date: '20 December',
+          date: '1/11/2023',
         },
         {
           id: 3,
-          category:'vacation',
+          category:'Food/Drinks',
           amount: '2000.00',
           account: 'credit',
-          date: '20 December',
+          date: '4/11/2023',
+        },
+        {
+          id: 4,
+          category:'Transport',
+          amount: '2000.00',
+          account: 'credit',
+          date: '5/11/2023',
+        },
+        {
+          id: 5,
+          category:'Others',
+          amount: '2000.00',
+          account: 'credit',
+          date: '3/11/2023',
         }
       ])
       const [expenses, setExpenses] = useState([
@@ -34,7 +48,7 @@ export const DataProvider = ({children}) => {
           category:'vacation',
           amount: '2000.00',
           account: 'credit',
-          date: '20 December',
+          date: '4/11/2023',
         },
         {
           id: 2,
@@ -42,27 +56,38 @@ export const DataProvider = ({children}) => {
           category:'Hobbies',
           amount: '2000.00',
           account: 'credit',
-          date: '20 December',
+          date: '1/11/2023',
         },
         {
           id: 3,
           budgetId:3,
+          category:'Food/Drinks',
+          amount: '2000.00',
+          account: 'credit',
+          date: '4/11/2023',
+        },
+        {
+          id: 4,
+          budgetId:4,
           category:'Transport',
           amount: '2000.00',
           account: 'credit',
-          date: '20 December',
+          date: '5/11/2023',
         }
       ])
       const [totalBudget, setTotalBudget] = useState(0);
+      const [totalExpense, setTotalExpense] = useState(0);
 
       useEffect(() => {
           const updatedTotalBudget = budget.reduce((total, currentValue) => total + parseFloat(currentValue.amount), 0);
           setTotalBudget(updatedTotalBudget);
-      }, [budget]);
+          const updateTotalExpense = expenses.reduce((total, currentValue) => total + parseFloat(currentValue.amount), 0);
+          setTotalExpense(updateTotalExpense)
+      }, [budget,expenses]);
       
   return (
     <DataContext.Provider value={{
-        budget, setBudget, totalBudget,expenses,setExpenses
+        budget, setBudget, totalBudget,expenses,setExpenses,totalExpense
     }}>
         {children}
     </DataContext.Provider>
