@@ -43,11 +43,11 @@ const Expenses = () => {
     <div className="h-full relative overflow-y-auto">
       <div className="sticky top-0 z-10">
           <div className="text-center p-2">
-              <h1 className="text-3xl font-semibold">{filteredBudget.category}</h1>
+              <h1 className="text-xl md:text-3xl font-semibold">{filteredBudget.category}</h1>
               <p className="py-2 text-lg">December 20</p>
           </div>
           <div>
-          <div className="flex justify-between text-2xl border-b-2 pb-2">
+          <div className="flex justify-between md:text-2xl border-b-2 pb-2">
               <h1 className="capitalize">transaction: {filteredExpenses ? (filteredExpenses.length) : 0}</h1>
               <p className="text-green-500 font-semibold">Budget: {filteredBudget ? `${filteredBudget.amount}`: '0$'}$</p>
               <p className="text-red-500 font-semibold">Expenses: {totalExpense ? `-${totalExpense}.00$` : '0$'}</p>
@@ -83,7 +83,7 @@ const Expenses = () => {
             : <p className="text-3xl text-black text-center p-4">No Expense to display</p>
             }
          </ul>
-          <button onClick={toggleAddExpense} className="fixed right-[500px] bottom-20 mt-16 z-20 bg-red-500 text-white text-3xl rounded-full w-14 h-14 grid place-items-center">-</button>
+          <button onClick={toggleAddExpense} className="fixed md:right-[500px] bottom-20 mt-16 z-20 bg-red-500 text-white text-3xl rounded-full w-14 h-14 grid place-items-center">-</button>
       </div>
       {addExpense && 
           <AddExpense toggleAddExpense={toggleAddExpense}/>
