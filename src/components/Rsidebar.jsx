@@ -3,12 +3,13 @@ import { DataContext } from "../context/DataContext";
 
 const Rsidebar = () => {
   const { totalBudget, totalExpense } = useContext(DataContext)
+  const total = eval(totalBudget - totalExpense)
 
   return (
     <div className="lg:w-96 pl-2">
       <div className="p-4 rounded-3xl">
             <div className="bg-white rounded-3xl p-6 lg:w-2xl h-1/2 w-full">
-                <h1 className="border-b font-semibold pb-4 lg:text-2xl">General Statistic</h1>
+                <h1 className="border-b font-semibold pb-4 lg:text-2xl">General Statistics</h1>
                 <table className="w-full h-full mt-2 bg-white">
                       <tbody className="font-medium">
                       <tr>
@@ -17,11 +18,11 @@ const Rsidebar = () => {
                       </tr>
                       <tr>
                         <td>Expenses</td>
-                        <td className="text-red-500">-{totalExpense}.00$</td>
+                        <td className="text-red-500">-{totalExpense ? totalExpense : 0}.00$</td>
                       </tr>
                       <tr> 
                         <td>Remaining</td>
-                        <td className=" text-sky-500">{eval(totalBudget - totalExpense)}.00$</td>
+                        <td className=" text-sky-500">{total ? total : 0}.00$</td>
                       </tr>
                   </tbody>
                 </table>

@@ -4,15 +4,17 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import AddExpense from "../components/AddExpense";
+import useLocalStorage from "../hook/useLocalStorage";
 
 const Expenses = () => {
   const {id} = useParams()
   const { budget, expenses, setExpenses } = useContext(DataContext);
   const [activeExpenseId, setActiveExpenseId] = useState(null);
   const [addExpense, setAddExpense] = useState(false);
+  const { setItem } = useLocalStorage('expenses')
 
-  const filteredBudget = budget.find((budget) => (budget.id).toString() === id)
-  const filteredExpenses = expenses.filter(expense => (expense.budgetId).toString() === id);
+  const filteredBudget = budget.find((budget) => (budget.id) == id)
+  const filteredExpenses = expenses.filter(expense => (expense.budgetId) == id);
 
   const toggleVisibility = (expenseId) => {
     setActiveExpenseId(prevActiveId => (prevActiveId === expenseId ? null : expenseId))
@@ -22,6 +24,7 @@ const Expenses = () => {
     setExpenses((expenses) => {
       return expenses.filter((expense) => expense.id !== id)
     })
+    setItem(expenses.filter((expense) => expense.id !== id))
   }
 
   const toggleAddExpense = () => {
@@ -43,8 +46,12 @@ const Expenses = () => {
     <div className="h-full relative overflow-y-auto">
       <div className="sticky top-0 z-10">
           <div className="text-center p-2">
-              <h1 className="text-3xl font-semibold">{filteredBudget.category}</h1>
-              <p className="py-2 text-lg">December 20</p>
+             {filteredBudget &&
+                <>
+                <h1 className="text-3xl font-semibold">{filteredBudget.category}</h1>
+                <p className="py-2 text-lg">{filteredBudget.date}</p>
+                </>
+            }
           </div>
           <div>
           <div className="flex justify-between text-2xl border-b-2 pb-2">
@@ -80,13 +87,13 @@ const Expenses = () => {
                     </div>
                 </li>
                 ))
-            : <p className="text-3xl text-black text-center p-4">No Expense to display</p>
+            : <p className="text-3xl text-black text-center p-4"></p>
             }
          </ul>
-          <button onClick={toggleAddExpense} className="fixed right-[500px] bottom-20 mt-16 z-20 bg-red-500 text-white text-3xl rounded-full w-14 h-14 grid place-items-center">-</button>
+          <button onClick={toggleAddExpense} className="fixed right-[500px] bottom-20 mt-16 z-50 bg-red-500 text-white text-3xl rounded-full w-14 h-14 grid place-items-center">-</button>
       </div>
       {addExpense && 
-          <AddExpense toggleAddExpense={toggleAddExpense}/>
+            <AddExpense toggleAddExpense={toggleAddExpense}/>
       }
     </div>
   )

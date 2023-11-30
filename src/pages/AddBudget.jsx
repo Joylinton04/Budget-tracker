@@ -2,12 +2,15 @@ import { useState } from "react";
 import { useContext } from "react";
 import { DataContext } from "../context/DataContext";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import useLocalStorage from "../hook/useLocalStorage";
 
 const AddBudget = () => {
     const { budget, setBudget } = useContext(DataContext)
     const [amount, setAmount] = useState('')
     const [category, setCategory] = useState('')
     const [account, setAccount] = useState('')
+    const { setItem } = useLocalStorage('budget')
     const navigate = useNavigate()
 
     
@@ -19,9 +22,14 @@ const AddBudget = () => {
         setBudget((prevBudget) => {
             return [...prevBudget, {id:id,category:category,amount:amount,account:account,date:'31 Oct'}]
         })
+        setItem([...budget, {id:id,category:category,amount:amount,account:account,date:'31 Oct'}])
         navigate('/')
     }
 
+    /* useEffect(() => {
+        setItem([...budget])
+    },[setItem, budget])
+ */
 
   return (
     <form className="rounded-2xl p-4 relative h-full" onSubmit={handleSubmit}>

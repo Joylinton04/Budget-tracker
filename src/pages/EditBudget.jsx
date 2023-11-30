@@ -14,7 +14,6 @@ const EditBudget = () => {
     const navigate = useNavigate()
 
     const filteredBudget = budget.find((budget) => (budget.id).toString() === id)
-    console.log(filteredBudget)
 
     useEffect(() => {
         if(filteredBudget) {

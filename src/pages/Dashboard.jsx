@@ -24,7 +24,7 @@ const Dashboard = () => {
           <div className="px-6 pb-6">
             <table className="w-full">
               <tbody>
-                {recent.length 
+                {recent.length > 0
                 ?  recent.map((recent => {
                   const Allexpense = expenses.filter(expense => expense.id == recent.id)
                   const totalExpense = Allexpense.reduce((total, currentExpense)=> total + parseFloat(currentExpense.amount), 0)

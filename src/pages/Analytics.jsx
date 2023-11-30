@@ -3,14 +3,19 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Link } from 'react-router-dom';
 import { useContext } from "react";
 import { DataContext } from "../context/DataContext"
+import useLocalStorage from '../hook/useLocalStorage';
 
 const Analytics = () => {
     const { budget, setBudget, expenses } = useContext(DataContext)
+    const { setItem:setBud } = useLocalStorage('budget')
+    const { setItem:setExp } = useLocalStorage('expenses')
 
     const handleDelete = (id) => {
         setBudget(prevBudget => {
             return prevBudget.filter(budget => budget.id !== id)
         })
+        setBud(budget.filter(budget => budget.id !== id))
+        setExp(expenses.filter(expense => expense.budgetId !== id))
     }
 
     const bgStyles = {
@@ -20,7 +25,6 @@ const Analytics = () => {
         'Hobbies': { backgroundColor: 'green' },
         'other': { backgroundColor: 'purple' }
     }
-
 
   return (
         <div className="w-full rounded-[2rem] h-full">
@@ -34,8 +38,6 @@ const Analytics = () => {
                     const widthStyles = {
                         backgroundColor: percentageWidth < '20%' ? 'red' : percentageWidth < '60%' ? 'rgb(30 64 175)' : 'green'
                       };
-                      /* 'rgb(190 18 60)' */
-                      
                       const styles = {
                         width: percentageWidth,
                         ...widthStyles,

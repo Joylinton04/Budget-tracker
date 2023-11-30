@@ -1,11 +1,12 @@
 import CategoryIcon from '@mui/icons-material/Category';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useContext } from "react";
 import { DataContext } from "../context/DataContext";
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import format from 'date-fns/format';
+import useLocalStorage from '../hook/useLocalStorage';
 
 
 
@@ -15,7 +16,7 @@ const AddExpense = ({toggleAddExpense}) => {
     const [expenseAmount, setExpenseAmount] = useState('')
     const [expenseCategory, setExpenseCategory] = useState('')
     const [expenseAccount, setExpenseAccount] = useState('')
-    const navigate = useNavigate()
+    const { setItem } = useLocalStorage('expenses')
 
     const handleAddExpense = (e) => {
         e.preventDefault()
@@ -23,18 +24,11 @@ const AddExpense = ({toggleAddExpense}) => {
         setExpenses(prevExpenses => {
             return [...prevExpenses, {id:id, budgetId:budgetId, amount:expenseAmount, category:expenseCategory, account:expenseAccount,date:format(new Date(),'MM/dd/yyyy')}]
         })
+        setItem([...expenses, {id:id, budgetId:budgetId, amount:expenseAmount, category:expenseCategory, account:expenseAccount,date:format(new Date(),'MM/dd/yyyy')}])
         toggleAddExpense()
     }
 
-/* id: 1,
-budgetId:1,
-category:'vacation',
-amount: '2000.00',
-account: 'credit',
-date: '20 December', */
-
-
-
+    
 
   return (
     <div className="fixed top-1/4 left-1/2 -translate-x-2/4 bg-white w-1/2 h-1/2 rounded-lg p-4 z-20  scale-1 transition-transform">

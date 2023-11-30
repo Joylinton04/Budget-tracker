@@ -1,11 +1,15 @@
 import { createContext } from 'react';
+import useLocalStorage from '../hook/useLocalStorage';
 import { useState,useEffect } from 'react';
 
 export const DataContext = createContext("");
 
 export const DataProvider = ({children}) => {
-    const [budget, setBudget] = useState([
-        {
+  const { getItems:getBudgets } = useLocalStorage('budget')
+  const { getItems:getExpenses } = useLocalStorage('expenses')
+
+    const [budget, setBudget] = useState(
+        /* {
           id: 1,
           category:'vacation',
           amount: '5000.00',
@@ -39,10 +43,11 @@ export const DataProvider = ({children}) => {
           amount: '2000.00',
           account: 'credit',
           date: '3/11/2023',
-        }
-      ])
-      const [expenses, setExpenses] = useState([
-        {
+        } */
+        getBudgets() || []
+      )
+      const [expenses, setExpenses] = useState(
+        /* {
           id: 1,
           budgetId:1,
           category:'vacation',
@@ -73,8 +78,9 @@ export const DataProvider = ({children}) => {
           amount: '2000.00',
           account: 'credit',
           date: '5/11/2023',
-        }
-      ])
+        } */
+        getExpenses() || []
+      )
       const [totalBudget, setTotalBudget] = useState(0);
       const [totalExpense, setTotalExpense] = useState(0);
 
