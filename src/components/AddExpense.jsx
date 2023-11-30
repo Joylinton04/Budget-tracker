@@ -22,9 +22,22 @@ const AddExpense = ({toggleAddExpense}) => {
         e.preventDefault()
         const id = expenses.length ? expenses[(expenses.length)-1].id + 1 : 1
         setExpenses(prevExpenses => {
-            return [...prevExpenses, {id:id, budgetId:budgetId, amount:expenseAmount, category:expenseCategory, account:expenseAccount,date:format(new Date(),'MM/dd/yyyy')}]
+            return [...prevExpenses, {
+                id:id, budgetId:budgetId, 
+                amount:expenseAmount, 
+                category:expenseCategory, 
+                account:expenseAccount,
+                date:format(new Date(),'MM/dd/yyyy')
+        }]
         })
-        setItem([...expenses, {id:id, budgetId:budgetId, amount:expenseAmount, category:expenseCategory, account:expenseAccount,date:format(new Date(),'MM/dd/yyyy')}])
+        setItem([...expenses, 
+            {
+                id:id, budgetId:budgetId, 
+                amount:expenseAmount, 
+                category:expenseCategory, 
+                account:expenseAccount,
+                date:format(new Date(),'MM/dd/yyyy')
+            }])
         toggleAddExpense()
     }
 
