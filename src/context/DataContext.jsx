@@ -83,6 +83,7 @@ export const DataProvider = ({children}) => {
       )
       const [totalBudget, setTotalBudget] = useState(0);
       const [totalExpense, setTotalExpense] = useState(0);
+      const [HideSideNav,setHideSideNav] = useState(true);
 
       useEffect(() => {
           const updatedTotalBudget = budget.reduce((total, currentValue) => total + parseFloat(currentValue.amount), 0);
@@ -93,7 +94,7 @@ export const DataProvider = ({children}) => {
       
   return (
     <DataContext.Provider value={{
-        budget, setBudget, totalBudget,expenses,setExpenses,totalExpense
+        budget, setBudget, totalBudget,expenses,setExpenses,totalExpense,HideSideNav,setHideSideNav
     }}>
         {children}
     </DataContext.Provider>
